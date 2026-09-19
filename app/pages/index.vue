@@ -4,6 +4,10 @@ import type { DimensionItem, MetricItem, QuoteItem } from '~/types'
 const { t, tm } = useI18n()
 const { vanish } = useVanish()
 const localePath = useLocalePath()
+const proofPath = computed(() => {
+  const home = localePath('/')
+  return home.includes('#') ? home : `${home}#proof`
+})
 
 useSeoMeta({
   title: () => t('meta.title'),
@@ -41,7 +45,7 @@ const restDimensions = computed(() => dimensionItems.value.slice(1))
               {{ t('hero.cta') }}
             </InkButton>
             <NuxtLink
-              :to="localePath('/#proof')"
+              :to="proofPath"
               class="text-[14px] text-muted px-2 no-underline inline-flex min-h-11 items-center hover:text-ink"
             >
               {{ t('hero.inspect') }}

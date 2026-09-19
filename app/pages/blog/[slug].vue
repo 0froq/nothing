@@ -3,6 +3,7 @@ import type { LocaleCode } from '~/types'
 import { posts } from '~/data/posts'
 
 const { t, locale } = useI18n()
+const localePath = useLocalePath()
 const route = useRoute()
 const localeKey = computed(() => (locale.value === 'zh' ? 'zh' : 'en') as LocaleCode)
 
@@ -42,12 +43,12 @@ useSeoMeta({
       </p>
     </div>
     <p class="m-0 mt-14 pt-6 border-t border-line">
-      <NuxtLinkLocale
-        to="/blog"
+      <NuxtLink
+        :to="localePath('/blog')"
         class="text-[11px] text-muted tracking-[0.1em] uppercase font-mono hover:text-ink"
       >
         {{ t('blog.back') }}
-      </NuxtLinkLocale>
+      </NuxtLink>
     </p>
   </article>
 </template>
