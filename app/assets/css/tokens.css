@@ -1,0 +1,21 @@
+:root {
+  color-scheme: light;
+  --paper: light-dark(#fbfbf9, #101012);
+  --ink: light-dark(#16161a, #f2f2ee);
+  --muted: light-dark(#6e6e73, #9a9a94);
+  --line: light-dark(#e3e3de, #2a2a2e);
+  --accent: light-dark(#1d4ed8, #7da2ff);
+  --wry: light-dark(#8a5a00, #d9a441);
+  --font-sans: 'Instrument Sans Variable', 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'DM Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --chrome: 4.25rem;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+html.light {
+  color-scheme: light;
+}

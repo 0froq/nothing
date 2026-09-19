@@ -1,0 +1,144 @@
+{
+  "meta": {
+    "title": "nothing: ship nothing today",
+    "description": "Nothing. Beautifully shipped."
+  },
+  "nav": {
+    "skip": "Skip to content",
+    "proof": "proof",
+    "blog": "blog",
+    "changelog": "log"
+  },
+  "theme": {
+    "toLight": "Use light surface",
+    "toDark": "Use dark surface"
+  },
+  "locale": {
+    "en": "EN",
+    "zh": "中"
+  },
+  "hero": {
+    "word": "nothing.",
+    "lede": "A product for accomplishing none of your goals. Zero onboarding. No accidental productivity.",
+    "cta": "Acquire nothing",
+    "inspect": "Inspect the void"
+  },
+  "proof": {
+    "title": "All the reassuring metrics of a serious product, except the product.",
+    "benchmark": "universal benchmark",
+    "items": [
+      {
+        "value": "0%",
+        "label": "time saved",
+        "copy": "Nothing optimises nothing, so your original chaos stays intact."
+      },
+      {
+        "value": "0",
+        "label": "features",
+        "copy": "No feature creep. No hidden settings panel behind a tasteful icon."
+      },
+      {
+        "value": "0 ms",
+        "label": "latency",
+        "copy": "Because nothing happens, everything happens instantly."
+      },
+      {
+        "value": "∞",
+        "label": "possible uses",
+        "copy": "Legal asked us to stop this claim. Legal also has no idea what nothing is."
+      }
+    ]
+  },
+  "dimensions": {
+    "title": "Four carefully curated dimensions of absolutely nothing.",
+    "items": [
+      {
+        "label": "interface",
+        "title": "A dashboard with no dash and no board.",
+        "copy": "Everything is where you left it: nowhere.",
+        "caption": "n/a, by design"
+      },
+      {
+        "label": "packaging",
+        "title": "An unboxing of rare restraint.",
+        "copy": "Inside the box you will discover less than expected.",
+        "caption": "includes air"
+      },
+      {
+        "label": "support",
+        "title": "A knowledge base free from knowledge.",
+        "copy": "The FAQs stay peaceful because there are no Qs, and thus no As.",
+        "caption": "serves nothing"
+      },
+      {
+        "label": "ecosystem",
+        "title": "Nothing interoperates with nothing.",
+        "copy": "A platform story stripped of platforms and most of the story.",
+        "caption": "no integrations"
+      }
+    ]
+  },
+  "demo": {
+    "title": "The complete product, presented with almost suspicious confidence.",
+    "label": "interactive preview",
+    "size": "1440 x 0",
+    "copy": "The preview occupies an impressive amount of space while remaining faithful to the product.",
+    "list": [
+      "no signup wall",
+      "no tutorial carousel",
+      "no productivity theatre",
+      "no AI footnote"
+    ]
+  },
+  "quotes": {
+    "title": "What people are not saying.",
+    "items": [
+      {
+        "quote": "I opened nothing and immediately understood the product.",
+        "by": "anonymous, for obvious reasons"
+      },
+      {
+        "quote": " ",
+        "by": "nobody, verified non-user",
+        "empty": true
+      },
+      {
+        "quote": "Finally, a tool that respects my workflow by not entering it.",
+        "by": "person who did not ask for this"
+      }
+    ]
+  },
+  "pricing": {
+    "title": "Nothing, forever.",
+    "lede": "No trial, because there is nothing to trial. No enterprise plan. Your enterprise already has enough.",
+    "price": "0",
+    "period": "/forever",
+    "items": [
+      "zero seats",
+      "zero cloud storage",
+      "zero AI credits",
+      "cancel when you remember"
+    ],
+    "cta": "Acquire nothing"
+  },
+  "final": {
+    "title": "ship nothing.",
+    "lede": "You said you would ship something today. We removed the fragile part: the something."
+  },
+  "footer": {
+    "left": "© 2026 nothing, inc. probably not",
+    "right": "made with unnecessary care"
+  },
+  "vanish": {
+    "done": "done. there is nothing left."
+  },
+  "blog": {
+    "title": "Notes from the void",
+    "empty": "No posts. This is on-brand.",
+    "back": "All notes"
+  },
+  "changelog": {
+    "title": "What did not happen",
+    "lede": "A precise record of absences, versioned for people who enjoy ceremony."
+  }
+}

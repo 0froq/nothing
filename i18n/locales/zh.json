@@ -1,0 +1,144 @@
+{
+  "meta": {
+    "title": "nothing: 今天什么都不交",
+    "description": "Nothing。漂亮地交出去。"
+  },
+  "nav": {
+    "skip": "跳到正文",
+    "proof": "证据",
+    "blog": "日志",
+    "changelog": "更新"
+  },
+  "theme": {
+    "toLight": "切到浅色",
+    "toDark": "切到深色"
+  },
+  "locale": {
+    "en": "EN",
+    "zh": "中"
+  },
+  "hero": {
+    "word": "nothing.",
+    "lede": "一款帮你完成零项目标的产品。零上手。也不会一不小心变得高效。",
+    "cta": "获取 nothing",
+    "inspect": "检查这片空"
+  },
+  "proof": {
+    "title": "严肃产品该有的安心指标都在。缺的只是产品。",
+    "benchmark": "通用基准",
+    "items": [
+      {
+        "value": "0%",
+        "label": "节省的时间",
+        "copy": "Nothing 优化的是 nothing，所以你原来的混乱被完好保留。"
+      },
+      {
+        "value": "0",
+        "label": "功能",
+        "copy": "没有功能蔓延。没有藏在体面图标后面的设置面板。"
+      },
+      {
+        "value": "0 ms",
+        "label": "延迟",
+        "copy": "因为什么都没发生，所以一切都是立刻发生的。"
+      },
+      {
+        "value": "∞",
+        "label": "可能用途",
+        "copy": "法务建议我们别再这么写。法务也不知道 nothing 是什么。"
+      }
+    ]
+  },
+  "dimensions": {
+    "title": "四个被仔细策展过的、绝对的空。",
+    "items": [
+      {
+        "label": "界面",
+        "title": "没有 dash、也没有 board 的 dashboard。",
+        "copy": "所有东西都在你放下的地方：无处。",
+        "caption": "n/a, 刻意如此"
+      },
+      {
+        "label": "包装",
+        "title": "一次克制到罕见的开箱。",
+        "copy": "盒子里比你预期的更少。",
+        "caption": "内含空气"
+      },
+      {
+        "label": "支持",
+        "title": "一份没有知识的知识库。",
+        "copy": "FAQ 很安静，因为没有 Q，也就没有 A。",
+        "caption": "什么都不提供"
+      },
+      {
+        "label": "生态",
+        "title": "nothing 与 nothing 互操作。",
+        "copy": "一个被剥掉所有平台、也剥掉大半故事的平台故事。",
+        "caption": "没有集成"
+      }
+    ]
+  },
+  "demo": {
+    "title": "这就是完整产品，自信得几乎可疑。",
+    "label": "交互预览",
+    "size": "1440 x 0",
+    "copy": "预览占据了可观的空间，同时对产品现实保持完全忠实。",
+    "list": [
+      "没有注册墙",
+      "没有教程轮播",
+      "没有生产力剧场",
+      "没有 AI 脚注"
+    ]
+  },
+  "quotes": {
+    "title": "人们没有在说的话。",
+    "items": [
+      {
+        "quote": "我打开 nothing，立刻理解了这款产品。",
+        "by": "匿名，原因显而易见"
+      },
+      {
+        "quote": " ",
+        "by": "无人, 已验证的非用户",
+        "empty": true
+      },
+      {
+        "quote": "终于有一个工具，通过不进入我的工作流来尊重它。",
+        "by": "并没有要这个的人"
+      }
+    ]
+  },
+  "pricing": {
+    "title": "Nothing，永远。",
+    "lede": "没有试用，因为没有可试的东西。没有企业版。你的企业已经够多了。",
+    "price": "0",
+    "period": "/forever",
+    "items": [
+      "零个席位",
+      "零云存储",
+      "零 AI 额度",
+      "等你想起来再取消"
+    ],
+    "cta": "获取 nothing"
+  },
+  "final": {
+    "title": "ship nothing.",
+    "lede": "你说今天要交出点什么。我们拿掉了最脆弱的部分：那个什么。"
+  },
+  "footer": {
+    "left": "© 2026 nothing, inc. 大概不是",
+    "right": "用了不必要的认真"
+  },
+  "vanish": {
+    "done": "好了。什么都不剩了。"
+  },
+  "blog": {
+    "title": "来自空的笔记",
+    "empty": "没有文章。这很符合品牌。",
+    "back": "全部笔记"
+  },
+  "changelog": {
+    "title": "没有发生过的事",
+    "lede": "一份精确的缺席清单，为喜欢仪式感的人做了版本号。"
+  }
+}

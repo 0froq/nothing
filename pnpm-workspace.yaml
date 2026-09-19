@@ -1,0 +1,38 @@
+minimumReleaseAgeExcludePrune: true
+trustPolicy: no-downgrade
+shellEmulator: true
+
+packages:
+  - .
+
+onlyBuiltDependencies:
+  - esbuild
+  - simple-git-hooks
+  - unrs-resolver
+  - workerd
+
+catalog: {}
+
+catalogs:
+  dev:
+    '@antfu/eslint-config': ^9.3.0
+    '@iconify-json/carbon': ^1.2.18
+    '@nuxt/eslint': ^1.17.0
+    '@unocss/eslint-plugin': ^66.7.5
+    '@unocss/nuxt': ^66.7.5
+    eslint: ^9.39.0
+    eslint-plugin-format: ^2.0.1
+    lint-staged: ^16.1.6
+    simple-git-hooks: ^2.13.1
+    typescript: ~5.9.3
+    unocss: ^66.7.5
+    vue-tsc: ^3.3.10
+    wrangler: ^4.123.0
+  prod:
+    '@fontsource-variable/instrument-sans': ^5.3.0
+    '@fontsource/dm-mono': ^5.2.7
+    '@nuxtjs/i18n': ^10.1.1
+    '@vueuse/core': ^14.4.0
+    '@vueuse/nuxt': ^14.4.0
+    nuxt: ^4.5.2
+    vue: ^3.5.41

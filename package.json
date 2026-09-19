@@ -1,0 +1,48 @@
+{
+  "name": "nothing",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "pnpm@10.15.0",
+  "description": "A lovingly art-directed product for accomplishing absolutely none of your goals.",
+  "scripts": {
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "preview": "nuxt preview",
+    "deploy": "nuxt build && wrangler deploy",
+    "lint": "eslint . --cache --concurrency=auto",
+    "lint:fix": "eslint . --cache --concurrency=auto --fix",
+    "postinstall": "nuxt prepare",
+    "prepare": "npx simple-git-hooks"
+  },
+  "dependencies": {
+    "@fontsource-variable/instrument-sans": "catalog:prod",
+    "@fontsource/dm-mono": "catalog:prod",
+    "@nuxtjs/i18n": "catalog:prod",
+    "@vueuse/core": "catalog:prod",
+    "@vueuse/nuxt": "catalog:prod",
+    "nuxt": "catalog:prod",
+    "vue": "catalog:prod"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "catalog:dev",
+    "@iconify-json/carbon": "catalog:dev",
+    "@nuxt/eslint": "catalog:dev",
+    "@unocss/eslint-plugin": "catalog:dev",
+    "@unocss/nuxt": "catalog:dev",
+    "eslint": "catalog:dev",
+    "eslint-plugin-format": "catalog:dev",
+    "lint-staged": "catalog:dev",
+    "simple-git-hooks": "catalog:dev",
+    "typescript": "catalog:dev",
+    "unocss": "catalog:dev",
+    "vue-tsc": "catalog:dev",
+    "wrangler": "catalog:dev"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm i --frozen-lockfile --ignore-scripts --offline && npx lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
+  }
+}
