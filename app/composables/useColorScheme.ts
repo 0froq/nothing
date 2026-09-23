@@ -1,6 +1,7 @@
 import type { ColorSchemePref } from '~/types'
 
-const KEY = 'nothing-color-scheme'
+const KEY = 'void-color-scheme'
+const LEGACY_KEY = 'nothing-color-scheme'
 
 export function useColorScheme() {
   const pref = useState<ColorSchemePref>('color-scheme-pref', () => 'auto')
@@ -42,7 +43,7 @@ export function useColorScheme() {
   function syncFromStorage(): void {
     if (!import.meta.client)
       return
-    const saved = localStorage.getItem(KEY)
+    const saved = localStorage.getItem(KEY) || localStorage.getItem(LEGACY_KEY)
     if (saved === 'light' || saved === 'dark' || saved === 'auto')
       apply(saved)
   }

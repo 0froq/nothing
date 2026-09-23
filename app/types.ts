@@ -22,21 +22,24 @@ export interface ChangelogEntry {
   notes: Localized<string[]>
 }
 
-export interface MetricItem {
-  value: string
-  label: string
-  copy: string
-}
-
-export interface DimensionItem {
+export interface FeatureItem {
   label: string
   title: string
   copy: string
-  caption: string
+  unit: string
+}
+
+export interface FaqItem {
+  q: string
+  a: string
 }
 
 export interface QuoteItem {
   quote: string
   by: string
-  empty?: boolean
+}
+
+export interface FactItem {
+  k: string
+  v: string
 }

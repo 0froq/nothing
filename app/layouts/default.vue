@@ -1,5 +1,7 @@
 <template>
-  <div class="erasable text-ink bg-paper flex flex-col min-h-dvh">
+  <AsciiField />
+  <div class="erasable text-ink flex flex-col relative z-[1] min-h-dvh">
+    <AsciiLocaleToggle />
     <SiteHeader />
     <main
       id="main"

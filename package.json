@@ -1,10 +1,10 @@
 {
-  "name": "nothing",
+  "name": "void",
   "type": "module",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "packageManager": "pnpm@10.15.0",
-  "description": "A lovingly art-directed product for accomplishing absolutely none of your goals.",
+  "description": "A lovingly art-directed product that returns void. Zero side-effects.",
   "scripts": {
     "dev": "nuxt dev",
     "build": "nuxt build",
@@ -16,7 +16,8 @@
     "prepare": "npx simple-git-hooks"
   },
   "dependencies": {
-    "@fontsource-variable/instrument-sans": "catalog:prod",
+    "@fontsource-variable/eb-garamond": "catalog:prod",
+    "@fontsource-variable/space-grotesk": "catalog:prod",
     "@fontsource/dm-mono": "catalog:prod",
     "@nuxtjs/i18n": "catalog:prod",
     "@vueuse/core": "catalog:prod",

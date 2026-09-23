@@ -9,6 +9,9 @@ body {
   line-height: 1.55;
   letter-spacing: -0.018em;
   text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  /* `hidden` would turn body into a scroll container and break the sticky header */
+  overflow-x: clip;
 }
 
 *,
@@ -33,8 +36,20 @@ button {
 }
 
 :focus-visible {
-  outline: 1px solid var(--accent);
+  outline: 1px solid var(--signal);
   outline-offset: 3px;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--signal) 24%, var(--paper));
+  color: var(--ink);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-serif);
+  font-weight: 400;
 }
 
 .skip-link {
@@ -46,44 +61,300 @@ button {
   background: var(--ink);
   color: var(--paper);
   padding: 0.6rem 0.9rem;
-}
-
-.skip-link:focus {
-  transform: none;
-}
-
-::selection {
-  background: color-mix(in srgb, var(--accent) 18%, var(--paper));
-}
-
-html.vanish .erasable {
-  visibility: hidden;
-}
-
-.vanish-done {
-  position: fixed;
-  inset: 0;
-  z-index: 80;
-  display: grid;
-  place-items: center;
-  background: var(--paper);
-  color: var(--muted);
   font-family: var(--font-mono);
   font-size: 12px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
+.skip-link:focus {
+  transform: none;
+}
+
+/* Blinking block cursor shared by terminal chrome */
+.terminal-cursor {
+  display: inline-block;
+  width: 0.55em;
+  height: 1.05em;
+  margin-left: 0.2em;
+  vertical-align: -0.15em;
+  background: var(--signal);
+}
+
 @media (prefers-reduced-motion: no-preference) {
-  html.vanish .erasable {
-    animation: cease 160ms var(--ease) both;
+  .terminal-cursor {
+    animation: blink 1.1s steps(1) infinite;
   }
 }
 
-@keyframes cease {
-  to {
-    visibility: hidden;
+@keyframes blink {
+  50% {
+    opacity: 0;
   }
+}
+
+/* Scroll reveal */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(1.5rem);
+    transition:
+      opacity 0.9s var(--ease),
+      transform 0.9s var(--ease);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  .reveal.is-in {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ASCII blocks print line by line once their card is revealed */
+  .reveal .ascii-print {
+    clip-path: inset(0 0 100% 0);
+  }
+
+  .reveal.is-in .ascii-print {
+    clip-path: inset(0);
+    transition: clip-path 0.9s steps(var(--print-steps, 10), end);
+    transition-delay: calc(var(--reveal-delay, 0ms) + 250ms);
+  }
+}
+
+/* Full-viewport generative ASCII field, sits under all content */
+.ascii-field {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+/* Invisible layout anchors for ASCII canvas */
+[data-ascii-intro],
+[data-ascii-word] {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  user-select: none !important;
+}
+
+.hero-word {
+  margin: 0;
+  font-size: clamp(140px, 28vw, 480px);
+  font-weight: 600;
+  line-height: 0.92;
+  min-height: clamp(140px, 28vw, 480px);
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+}
+
+/* Hero caption fades in once the canvas has finished decoding the word */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-foot {
+    animation: fade-in 1.2s var(--ease) 4.6s both;
+  }
+
+  .hero-scroll-arrow {
+    display: inline-block;
+    animation: nudge 2.4s var(--ease) 5.8s infinite;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+}
+
+@keyframes nudge {
+  50% {
+    transform: translateY(3px);
+  }
+}
+
+/* Ticker marquee */
+.ticker-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ticker-track {
+    animation: ticker 90s linear infinite;
+  }
+
+  .ticker:hover .ticker-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes ticker {
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+}
+
+/* Remaining-content bar: drains as you scroll */
+.remaining {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  pointer-events: none;
+}
+
+.remaining-track {
+  height: 2px;
+  background: var(--line);
+}
+
+.remaining-track::after {
+  content: '';
+  display: block;
+  height: 100%;
+  background: var(--signal);
+  transform-origin: left;
+}
+
+.remaining-label {
+  position: absolute;
+  right: 1.25rem;
+  bottom: 0.65rem;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .remaining-track::after {
+      animation: drain linear both;
+      animation-timeline: scroll(root);
+    }
+
+    .remaining-label {
+      animation: fade-out linear both;
+      animation-timeline: scroll(root);
+      animation-range: 85% 100%;
+    }
+  }
+}
+
+@keyframes drain {
+  to {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+/* Install: the page switches off like a CRT, collapsing around the viewport centre */
+html.is-vanishing .erasable {
+  pointer-events: none;
+  transform-origin: 50% var(--vanish-origin, 50vh);
+}
+
+html.is-vanished .erasable {
+  display: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.is-vanishing .erasable {
+    animation: crt-off 0.82s cubic-bezier(0.7, 0, 0.2, 1) both;
+  }
+
+  html.is-restored .erasable {
+    animation: appear 0.9s var(--ease) both;
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes crt-off {
+  0% {
+    transform: none;
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1, 0.003);
+    opacity: 0.9;
+  }
+
+  85% {
+    transform: scale(0, 0.003);
+    opacity: 0.6;
+  }
+
+  100% {
+    transform: scale(0, 0);
+    opacity: 0;
+  }
+}
+
+/* Hairline grids light up around the pointer through their 1px gaps */
+.spotlight {
+  position: relative;
+  isolation: isolate;
+}
+
+.spotlight > * {
+  position: relative;
+  z-index: 1;
+}
+
+.spotlight::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(320px circle at var(--spot-x, 50%) var(--spot-y, 50%), var(--signal), transparent 72%);
+  transition: opacity 0.5s var(--ease);
+}
+
+.spotlight.is-lit::before {
+  opacity: 1;
+}
+
+/* Route changes */
+.page-enter-active,
+.page-leave-active {
+  transition:
+    opacity 0.32s var(--ease),
+    transform 0.32s var(--ease);
+}
+
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.page-leave-to {
+  opacity: 0;
+}
+
+/* Theme switch uses a circular clip driven from ThemeToggle */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
 }
 
 @media (prefers-reduced-motion: reduce) {

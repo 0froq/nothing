@@ -7,41 +7,80 @@ const localePath = useLocalePath()
 const localeKey = computed(() => (locale.value === 'zh' ? 'zh' : 'en') as LocaleCode)
 
 useSeoMeta({
-  title: () => `${t('blog.title')}: nothing`,
-  description: () => t('blog.empty'),
+  title: () => `${t('blog.title')}: void`,
+  description: () => t('blog.lede'),
 })
+
+useReveal()
 </script>
 
 <template>
-  <article class="mx-auto page-shell py-20 max-w-[42rem]">
-    <h1 class="text-[clamp(36px,5vw,56px)] tracking-[-0.04em] font-normal m-0 mb-12">
+  <article class="prose-shell py-16 md:py-24">
+    <TerminalBar
+      command="ls notes/"
+      :status="`${posts.length} FILES`"
+    />
+
+    <AsciiDivider
+      section="INDEX"
+      :label="t('blog.title')"
+    />
+
+    <h1 class="reveal display-1 mt-10">
       {{ t('blog.title') }}
     </h1>
-    <ul class="m-0 p-0 list-none">
+    <p
+      class="reveal lede mt-5"
+      style="--reveal-delay: 80ms"
+    >
+      {{ t('blog.lede') }}
+    </p>
+
+    <ul class="m-0 mt-14 p-0 list-none border-t border-line">
       <li
         v-if="posts.length === 0"
-        class="text-muted py-8 border-t border-line"
+        class="reveal label py-8"
       >
         {{ t('blog.empty') }}
       </li>
       <li
-        v-for="post in posts"
+        v-for="(post, index) in posts"
         :key="post.slug"
-        class="py-8 border-t border-line"
+        class="reveal border-b border-line"
+        :style="{ '--reveal-delay': `${index * 80}ms` }"
       >
-        <p class="text-[11px] text-muted tracking-[0.1em] m-0 mb-2 font-mono">
-          {{ post.date }}
-        </p>
         <NuxtLink
           :to="localePath(`/blog/${post.slug}`)"
-          class="text-[28px] tracking-[-0.03em] hover:text-muted"
+          class="group py-8 no-underline block"
         >
-          {{ post.title[localeKey] }}
+          <div class="label-xs mb-4 flex justify-between">
+            <span><span class="text-signal">0{{ index + 1 }}</span> · {{ post.date }}</span>
+            <span class="normal-case">{{ post.slug }}.md</span>
+          </div>
+          <h2 class="text-ink title-lg transition-colors duration-300 group-hover:text-signal">
+            {{ post.title[localeKey] }}
+          </h2>
+          <p class="copy-sm mt-3 max-w-[60ch]">
+            {{ post.excerpt[localeKey] }}
+          </p>
+          <span class="label-xs text-ink mt-5 inline-flex gap-2">
+            {{ t('blog.read') }} <span class="post-arrow">→</span>
+          </span>
         </NuxtLink>
-        <p class="text-muted m-0 mt-3 max-w-[68ch]">
-          {{ post.excerpt[localeKey] }}
-        </p>
       </li>
     </ul>
   </article>
 </template>
+
+<style scoped>
+@media (prefers-reduced-motion: no-preference) {
+  .post-arrow {
+    display: inline-block;
+    transition: transform 0.3s var(--ease);
+  }
+
+  .group:hover .post-arrow {
+    transform: translateX(4px);
+  }
+}
+</style>

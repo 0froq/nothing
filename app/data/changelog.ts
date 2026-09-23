@@ -2,22 +2,40 @@ import type { ChangelogEntry } from '~/types'
 
 export const changelog: ChangelogEntry[] = [
   {
-    version: 'v0.0.1',
-    date: '2026-09-19',
+    version: 'v0.1.0',
+    date: '2026-09-22',
     title: {
-      en: 'Nothing changed, but faster',
-      zh: '什么都没改，但更快了',
+      en: 'Renamed to void',
+      zh: '更名为 void',
     },
     notes: {
       en: [
-        'Removed several SVG illustrations that were trying too hard to depict absence.',
-        'Added a public site, which still contains nothing.',
-        'Performance remains 0 ms. We checked.',
+        'Renamed from nothing to void. Behavior is unchanged.',
+        'The new name is three characters shorter, which reduces the product by 43%.',
+        'No migration required.',
       ],
       zh: [
-        '删掉了几张过于努力描绘“空”的 SVG。',
-        '上线了站点。里面仍然什么都没有。',
-        '性能仍是 0 ms。我们核对过。',
+        '由 nothing 更名为 void，行为不变。',
+        '新名字少了 3 个字符，产品因此缩小了 43%。',
+        '无需迁移。',
+      ],
+    },
+  },
+  {
+    version: 'v0.0.1',
+    date: '2026-09-19',
+    title: {
+      en: 'Removed side effects',
+      zh: '移除副作用',
+    },
+    notes: {
+      en: [
+        'Removed the last remaining side effect.',
+        'Latency holds at 0 ms.',
+      ],
+      zh: [
+        '移除了最后一个副作用。',
+        '延迟保持在 0 ms。',
       ],
     },
   },
@@ -25,19 +43,17 @@ export const changelog: ChangelogEntry[] = [
     version: 'v0.0.0',
     date: '2026-09-01',
     title: {
-      en: 'Nothing changed',
-      zh: '什么都没改',
+      en: 'Initial release',
+      zh: '首次发布',
     },
     notes: {
       en: [
-        'Initial release of nothing.',
-        'Feature count: 0.',
-        'Known issues: none, because there is no surface for issues to attach to.',
+        'Initial release.',
+        'Known issues: none.',
       ],
       zh: [
-        'nothing 的首次发布。',
-        '功能数量：0。',
-        '已知问题：无。没有可供问题附着的表面。',
+        '首次发布。',
+        '已知问题：无。',
       ],
     },
   },

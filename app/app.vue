@@ -32,12 +32,6 @@ useHead({
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
-    <div
-      v-if="vanished"
-      class="vanish-done"
-      role="status"
-    >
-      {{ t('vanish.done') }}
-    </div>
+    <InstallScreen v-if="vanished" />
   </div>
 </template>

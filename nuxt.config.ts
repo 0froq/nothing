@@ -13,7 +13,9 @@ export default defineNuxtConfig({
   ],
 
   css: [
-    '@fontsource-variable/instrument-sans/index.css',
+    '@fontsource-variable/space-grotesk/index.css',
+    '@fontsource-variable/eb-garamond/index.css',
+    '@fontsource-variable/eb-garamond/wght-italic.css',
     '@fontsource/dm-mono/400.css',
     '@fontsource/dm-mono/500.css',
     '~/assets/css/tokens.css',
@@ -21,6 +23,10 @@ export default defineNuxtConfig({
   ],
 
   app: {
+    pageTransition: {
+      name: 'page',
+      mode: 'out-in',
+    },
     head: {
       htmlAttrs: {
         lang: 'en',
@@ -71,7 +77,7 @@ export default defineNuxtConfig({
     langDir: 'locales',
     detectBrowserLanguage: {
       useCookie: true,
-      cookieKey: 'nothing-locale',
+      cookieKey: 'void-locale',
       redirectOn: 'root',
     },
   },
@@ -83,13 +89,13 @@ export default defineNuxtConfig({
       routes: [
         '/',
         '/blog',
-        '/blog/shipping-nothing',
-        '/blog/zero-as-a-service',
+        '/blog/shipping-void',
+        '/blog/void-as-a-service',
         '/changelog',
         '/zh',
         '/zh/blog',
-        '/zh/blog/shipping-nothing',
-        '/zh/blog/zero-as-a-service',
+        '/zh/blog/shipping-void',
+        '/zh/blog/void-as-a-service',
         '/zh/changelog',
       ],
     },

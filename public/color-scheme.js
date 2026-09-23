@@ -1,6 +1,7 @@
 (() => {
-  const key = 'nothing-color-scheme'
-  const saved = localStorage.getItem(key)
+  const key = 'void-color-scheme'
+  const legacyKey = 'nothing-color-scheme'
+  const saved = localStorage.getItem(key) || localStorage.getItem(legacyKey)
   const pref = saved === 'light' || saved === 'dark' || saved === 'auto'
     ? saved
     : 'auto'

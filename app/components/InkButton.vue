@@ -1,38 +1,74 @@
 <script setup lang="ts">
-const props = withDefaults(
+import type { RouteLocationRaw } from 'vue-router'
+
+withDefaults(
   defineProps<{
-    tag?: 'button' | 'a'
+    to?: RouteLocationRaw
     tone?: 'solid' | 'ghost'
   }>(),
   {
-    tag: 'button',
+    to: undefined,
     tone: 'solid',
   },
 )
 
-const tag = computed(() => props.tag)
-
-const toneClass = computed(() => {
-  switch (props.tone) {
-    case 'ghost':
-      return 'bg-transparent text-ink border border-line hover:border-ink/40 hover:bg-paper/40 active:translate-y-px'
-    case 'solid':
-      return 'bg-ink text-paper border border-ink hover:bg-wry hover:border-wry active:translate-y-px'
-    default: {
-      const _exhaustive: never = props.tone
-      return _exhaustive
-    }
-  }
-})
+const NuxtLink = resolveComponent('NuxtLink')
 </script>
 
 <template>
   <component
-    :is="tag"
-    class="ink-button text-[14px] tracking-[-0.02em] px-5 py-2.5 rounded-full no-underline inline-flex min-h-11 cursor-pointer select-none items-center justify-center touch-manipulation"
-    :class="toneClass"
-    :type="tag === 'button' ? 'button' : undefined"
+    :is="to ? NuxtLink : 'button'"
+    :to="to"
+    :type="to ? undefined : 'button'"
+    :data-tone="tone"
+    class="ink-button text-[12px] leading-none tracking-[0.14em] px-5 border no-underline inline-flex gap-3 h-11 cursor-pointer select-none whitespace-nowrap uppercase items-center justify-center touch-manipulation font-mono active:translate-y-px"
   >
-    <slot />
+    <span v-scramble><slot /></span>
+    <span
+      class="ink-button-arrow"
+      aria-hidden="true"
+    >→</span>
   </component>
 </template>
+
+<style scoped>
+.ink-button[data-tone='solid'] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+.ink-button[data-tone='ghost'] {
+  background: transparent;
+  border-color: var(--line);
+  color: var(--ink);
+}
+
+.ink-button[data-tone='solid']:hover {
+  background: var(--signal);
+  border-color: var(--signal);
+  color: var(--paper);
+}
+
+.ink-button[data-tone='ghost']:hover {
+  border-color: var(--ink);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ink-button {
+    transition:
+      background-color 0.3s var(--ease),
+      border-color 0.3s var(--ease),
+      color 0.3s var(--ease),
+      transform 0.15s var(--ease);
+  }
+
+  .ink-button-arrow {
+    transition: transform 0.3s var(--ease);
+  }
+
+  .ink-button:hover .ink-button-arrow {
+    transform: translateX(3px);
+  }
+}
+</style>

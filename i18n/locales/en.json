@@ -1,144 +1,162 @@
 {
   "meta": {
-    "title": "nothing: ship nothing today",
-    "description": "Nothing. Beautifully shipped."
+    "title": "void. The product that returns nothing.",
+    "description": "void has zero bytes, zero side effects and zero features. Every call returns on time."
   },
   "nav": {
     "skip": "Skip to content",
-    "proof": "proof",
-    "blog": "blog",
-    "changelog": "log"
+    "proof": "Specs",
+    "blog": "Notes",
+    "changelog": "Changelog"
   },
   "theme": {
-    "toLight": "Use light surface",
-    "toDark": "Use dark surface"
-  },
-  "locale": {
-    "en": "EN",
-    "zh": "中"
+    "toLight": "Switch to light theme",
+    "toDark": "Switch to dark theme"
   },
   "hero": {
-    "word": "nothing.",
-    "lede": "A product for accomplishing none of your goals. Zero onboarding. No accidental productivity.",
-    "cta": "Acquire nothing",
-    "inspect": "Inspect the void"
+    "introducing": "introducing",
+    "word": "void.",
+    "tagline": "The product that returns nothing",
+    "scroll": "Scroll",
+    "cta": "Install void"
   },
-  "proof": {
-    "title": "All the reassuring metrics of a serious product, except the product.",
-    "benchmark": "universal benchmark",
+  "ticker": [
+    "returns: void",
+    "p99 latency: 0 ms",
+    "bundle: 0 B",
+    "dependencies: 0",
+    "side effects: none",
+    "regions: all",
+    "breaking changes: none",
+    "uptime: 100%"
+  ],
+  "features": {
+    "label": "Specs",
+    "title": "Four measurements. All zero.",
     "items": [
       {
-        "value": "0%",
-        "label": "time saved",
-        "copy": "Nothing optimises nothing, so your original chaos stays intact."
+        "label": "Latency",
+        "title": "0 ms at p99.",
+        "copy": "No work is scheduled, so nothing waits. Cold starts and warm starts take exactly the same time.",
+        "unit": "ms"
       },
       {
-        "value": "0",
-        "label": "features",
-        "copy": "No feature creep. No hidden settings panel behind a tasteful icon."
+        "label": "Footprint",
+        "title": "0 bytes, gzipped.",
+        "copy": "void is fully tree-shakeable. After a production build, nothing of it remains in your bundle.",
+        "unit": "B"
       },
       {
-        "value": "0 ms",
-        "label": "latency",
-        "copy": "Because nothing happens, everything happens instantly."
+        "label": "Side effects",
+        "title": "Pure by construction.",
+        "copy": "It reads nothing, writes nothing and makes no network requests. State stays where you left it.",
+        "unit": "writes"
       },
       {
-        "value": "∞",
-        "label": "possible uses",
-        "copy": "Legal asked us to stop this claim. Legal also has no idea what nothing is."
+        "label": "Reliability",
+        "title": "Never throws.",
+        "copy": "There is no failure path because there is no code path. Coverage is 100% of zero lines.",
+        "unit": "errors"
       }
     ]
   },
-  "dimensions": {
-    "title": "Four carefully curated dimensions of absolutely nothing.",
-    "items": [
-      {
-        "label": "interface",
-        "title": "A dashboard with no dash and no board.",
-        "copy": "Everything is where you left it: nowhere.",
-        "caption": "n/a, by design"
-      },
-      {
-        "label": "packaging",
-        "title": "An unboxing of rare restraint.",
-        "copy": "Inside the box you will discover less than expected.",
-        "caption": "includes air"
-      },
-      {
-        "label": "support",
-        "title": "A knowledge base free from knowledge.",
-        "copy": "The FAQs stay peaceful because there are no Qs, and thus no As.",
-        "caption": "serves nothing"
-      },
-      {
-        "label": "ecosystem",
-        "title": "Nothing interoperates with nothing.",
-        "copy": "A platform story stripped of platforms and most of the story.",
-        "caption": "no integrations"
-      }
-    ]
-  },
-  "demo": {
-    "title": "The complete product, presented with almost suspicious confidence.",
-    "label": "interactive preview",
-    "size": "1440 x 0",
-    "copy": "The preview occupies an impressive amount of space while remaining faithful to the product.",
-    "list": [
-      "no signup wall",
-      "no tutorial carousel",
-      "no productivity theatre",
-      "no AI footnote"
-    ]
+  "statement": {
+    "label": "Principle",
+    "a": "functions return void.",
+    "b": "so does the product."
   },
   "quotes": {
-    "title": "What people are not saying.",
+    "label": "Reviews",
+    "title": "From the people using it.",
     "items": [
       {
-        "quote": "I opened nothing and immediately understood the product.",
-        "by": "anonymous, for obvious reasons"
+        "quote": "We replaced an entire service with void. Nobody on call has noticed.",
+        "by": "Staff engineer, fintech"
       },
       {
-        "quote": " ",
-        "by": "nobody, verified non-user",
-        "empty": true
+        "quote": "The build is faster, the bundle is smaller, and there is nothing left to review.",
+        "by": "Frontend lead, design studio"
       },
       {
-        "quote": "Finally, a tool that respects my workflow by not entering it.",
-        "by": "person who did not ask for this"
+        "quote": "The first dependency I have added that made the project simpler.",
+        "by": "Independent developer"
       }
     ]
   },
   "pricing": {
-    "title": "Nothing, forever.",
-    "lede": "No trial, because there is nothing to trial. No enterprise plan. Your enterprise already has enough.",
+    "label": "Pricing",
+    "title": "Free. Permanently.",
+    "lede": "One plan, no tiers. There is no usage to meter and no seat to count.",
     "price": "0",
     "period": "/forever",
-    "items": [
-      "zero seats",
-      "zero cloud storage",
-      "zero AI credits",
-      "cancel when you remember"
+    "facts": [
+      { "k": "Seats", "v": "Unlimited" },
+      { "k": "Usage", "v": "Unmetered" },
+      { "k": "Contract", "v": "None" },
+      { "k": "Card", "v": "Not required" }
     ],
-    "cta": "Acquire nothing"
+    "enterprise": "Enterprise pricing is identical."
   },
+  "faq": {
+    "label": "Q&A",
+    "title": "Common questions.",
+    "items": [
+      {
+        "q": "What does `void()` return?",
+        "a": "Nothing. On time, every time."
+      },
+      {
+        "q": "Does it work with my stack?",
+        "a": "Any language that can express doing nothing is supported. Most offer several ways."
+      },
+      {
+        "q": "Is there a paid tier?",
+        "a": "No. There is nothing to charge for."
+      },
+      {
+        "q": "Can I get a refund?",
+        "a": "Yes. It has already been processed."
+      },
+      {
+        "q": "What's on the roadmap?",
+        "a": "Nothing new. We don't plan to ship breaking changes."
+      }
+    ]
+  },
+  "remaining": "page remaining",
   "final": {
-    "title": "ship nothing.",
-    "lede": "You said you would ship something today. We removed the fragile part: the something."
+    "title": "ship void.",
+    "lede": "No configuration, no maintenance, no migration to plan.",
+    "note": "No account or card required."
+  },
+  "install": {
+    "done": "void is installed.",
+    "lede": "This page now returns nothing.",
+    "restore": "Restore page"
   },
   "footer": {
-    "left": "© 2026 nothing, inc. probably not",
-    "right": "made with unnecessary care"
-  },
-  "vanish": {
-    "done": "done. there is nothing left."
+    "status": "All systems operational",
+    "left": "© 2026 void.",
+    "right": "A froQ studio project."
   },
   "blog": {
-    "title": "Notes from the void",
-    "empty": "No posts. This is on-brand.",
-    "back": "All notes"
+    "title": "Notes",
+    "lede": "Occasional writing on building, shipping and maintaining nothing.",
+    "empty": "No posts yet.",
+    "back": "All notes",
+    "read": "Read",
+    "minutes": "{n} min read"
   },
   "changelog": {
-    "title": "What did not happen",
-    "lede": "A precise record of absences, versioned for people who enjoy ceremony."
+    "title": "Changelog",
+    "lede": "Every release of void, newest first.",
+    "latest": "latest",
+    "count": "{n} releases"
+  },
+  "error": {
+    "notFound": "This page returns nothing.",
+    "generic": "Something went wrong.",
+    "lede": "Check the address, or go back to the start.",
+    "back": "Back to home"
   }
 }
