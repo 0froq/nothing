@@ -1,49 +1,43 @@
 <script setup lang="ts">
-import { changelog } from '~/data/changelog'
+const { product } = useAppConfig()
+const { t, locale, locales } = useI18n()
+const link = useKitLink()
+const switchLocalePath = useSwitchLocalePath()
+const { theme, ready, toggle } = useTheme()
+const copy = useCopy()
 
-const { t } = useI18n()
-const localePath = useLocalePath()
-const version = changelog[0]?.version ?? 'v0.0.0'
+const others = computed(() => locales.value.filter(l => l.code !== locale.value))
+const next = computed(() => theme.value === 'dark' ? 'light' : 'dark')
 </script>
 
 <template>
-  <footer class="border-t border-line bg-paper/70 backdrop-blur-xs">
-    <div class="label-xs page-shell py-3 border-b border-line flex gap-4 items-center justify-between">
-      <span class="flex gap-2 items-center">
-        <span
-          class="status-dot text-signal"
-          aria-hidden="true"
-        >●</span>
-        {{ t('footer.status') }}
-      </span>
+  <footer class="l-foot">
+    <span><Fill
+      :value="copy('site.footer')"
+      :size="24"
+    /></span>
+    <nav>
       <NuxtLink
-        :to="localePath('/changelog')"
-        class="no-underline normal-case hover:text-ink"
+        v-for="item in product.footer"
+        :key="item.to"
+        :to="link(item.to)"
       >
-        <span v-scramble>{{ version }}</span>
+        {{ t(item.label) }}
       </NuxtLink>
-    </div>
-    <div class="page-shell py-8 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-      <p class="text-[13px] text-muted m-0">
-        {{ t('footer.left') }}
-      </p>
-      <p class="text-[13px] text-muted m-0">
-        {{ t('footer.right') }}
-      </p>
-    </div>
+    </nav>
+    <span class="l-controls">
+      <NuxtLink
+        v-for="l in others"
+        :key="l.code"
+        :to="switchLocalePath(l.code)"
+        :lang="l.language"
+      >{{ l.name }}</NuxtLink>
+      <!-- The stored theme is only known on the client -->
+      <button
+        v-if="ready"
+        type="button"
+        @click="toggle"
+      >{{ t(`theme.${next}`) }}</button>
+    </span>
   </footer>
 </template>
-
-<style scoped>
-@media (prefers-reduced-motion: no-preference) {
-  .status-dot {
-    animation: pulse 2.4s var(--ease) infinite;
-  }
-
-  @keyframes pulse {
-    50% {
-      opacity: 0.25;
-    }
-  }
-}
-</style>

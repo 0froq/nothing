@@ -1,113 +1,72 @@
+import { markFinalStop } from './shared/final-mark'
+
 export default defineNuxtConfig({
   compatibilityDate: '2026-09-19',
 
-  future: {
-    compatibilityVersion: 4,
+  hooks: {
+    'content:file:afterParse': ({ content, collection }) => {
+      if (collection.name === 'notes' || collection.name === 'docs')
+        markFinalStop(content.body)
+    },
   },
 
   modules: [
-    '@unocss/nuxt',
-    '@vueuse/nuxt',
+    '@nuxt/content',
     '@nuxtjs/i18n',
     '@nuxt/eslint',
   ],
 
   css: [
-    '@fontsource-variable/space-grotesk/index.css',
-    '@fontsource-variable/eb-garamond/index.css',
-    '@fontsource-variable/eb-garamond/wght-italic.css',
-    '@fontsource/dm-mono/400.css',
-    '@fontsource/dm-mono/500.css',
-    '~/assets/css/tokens.css',
-    '~/assets/css/main.css',
+    '@fontsource-variable/geist/index.css',
+    '@fontsource-variable/geist-mono/index.css',
+    '@fontsource/instrument-serif/400.css',
+    '@fontsource/instrument-serif/400-italic.css',
+    '~/assets/css/kit.css',
   ],
 
   app: {
-    pageTransition: {
-      name: 'page',
-      mode: 'out-in',
-    },
+    pageTransition: { name: 'page', mode: 'out-in' },
     head: {
-      htmlAttrs: {
-        lang: 'en',
+      link: [{ rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' }],
+      meta: [{ name: 'color-scheme', content: 'light dark' }],
+      script: [{
+        tagPosition: 'head',
+        innerHTML: `try{var t=localStorage.getItem('kit-theme');document.documentElement.dataset.theme=t||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}catch(e){}`,
+      }],
+    },
+  },
+
+  content: {
+    experimental: { sqliteConnector: 'native' },
+    build: {
+      markdown: {
+        highlight: {
+          theme: { default: 'vitesse-light', dark: 'vitesse-dark' },
+          langs: ['ts', 'js', 'vue', 'bash', 'json', 'yaml', 'md'],
+        },
       },
-      script: [
-        {
-          src: '/color-scheme.js',
-          tagPosition: 'head',
-        },
-      ],
-      link: [
-        {
-          rel: 'icon',
-          href: '/favicon.svg',
-          type: 'image/svg+xml',
-        },
-      ],
-      meta: [
-        {
-          name: 'theme-color',
-          content: '#FBFBF9',
-        },
-        {
-          name: 'color-scheme',
-          content: 'light dark',
-        },
-      ],
     },
   },
 
   i18n: {
     locales: [
-      {
-        code: 'en',
-        language: 'en',
-        name: 'English',
-        file: 'en.json',
-      },
-      {
-        code: 'zh',
-        language: 'zh-CN',
-        name: '简体中文',
-        file: 'zh.json',
-      },
+      { code: 'en', language: 'en', name: 'English', file: 'en.json' },
+      { code: 'zh', language: 'zh-CN', name: '中文', file: 'zh.json' },
     ],
     defaultLocale: 'en',
     strategy: 'prefix_except_default',
-    langDir: 'locales',
-    detectBrowserLanguage: {
-      useCookie: true,
-      cookieKey: 'void-locale',
-      redirectOn: 'root',
-    },
+    detectBrowserLanguage: false,
   },
 
   nitro: {
-    preset: 'cloudflare-module',
+    preset: 'cloudflare_pages',
     prerender: {
       crawlLinks: true,
-      routes: [
-        '/',
-        '/blog',
-        '/blog/shipping-void',
-        '/blog/void-as-a-service',
-        '/changelog',
-        '/zh',
-        '/zh/blog',
-        '/zh/blog/shipping-void',
-        '/zh/blog/void-as-a-service',
-        '/zh/changelog',
-      ],
+      routes: ['/', '/zh'],
     },
   },
 
-  typescript: {
-    strict: true,
-  },
+  typescript: { strict: true },
 
-  eslint: {
-    config: {
-      standalone: false,
-    },
-  },
+  eslint: { config: { standalone: false } },
 })

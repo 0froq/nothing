@@ -1,37 +1,19 @@
 <script setup lang="ts">
-const { t, locale } = useI18n()
-const { vanished } = useVanish()
-const { resolvedDark, syncFromStorage } = useColorScheme()
-
-onMounted(() => {
-  syncFromStorage()
-})
+const { product } = useAppConfig()
+const { t } = useI18n()
+const localeHead = useLocaleHead()
 
 useHead({
   htmlAttrs: {
-    lang: () => (locale.value === 'zh' ? 'zh-CN' : 'en'),
+    lang: () => localeHead.value.htmlAttrs?.lang,
+    style: `--brand: ${product.accent.light}; --brand-dark: ${product.accent.dark ?? product.accent.light}`,
   },
-  meta: [
-    {
-      name: 'theme-color',
-      content: () => (resolvedDark.value ? '#101012' : '#FBFBF9'),
-    },
-  ],
+  titleTemplate: title => title ? `${title} — ${product.name}${product.mark}` : t('site.title'),
 })
 </script>
 
 <template>
-  <div>
-    <NuxtRouteAnnouncer />
-    <a
-      href="#main"
-      class="skip-link"
-    >
-      {{ t('nav.skip') }}
-    </a>
-    <NuxtLayout>
-      <NuxtPage />
-    </NuxtLayout>
-    <InstallScreen v-if="vanished" />
-  </div>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
 </template>

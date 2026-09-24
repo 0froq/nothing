@@ -1,21 +1,7 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "nothing",
-  "account_id": "9780854572847b5ed0aa040c4d511043",
+  "name": "void",
   "compatibility_date": "2026-09-19",
   "compatibility_flags": ["nodejs_compat"],
-  "main": ".output/server/index.mjs",
-  "assets": {
-    "binding": "ASSETS",
-    "directory": ".output/public"
-  },
-  "observability": {
-    "enabled": true
-  },
-  "routes": [
-    {
-      "pattern": "nothing.froq.me",
-      "custom_domain": true
-    }
-  ]
+  "pages_build_output_dir": "dist"
 }

@@ -1,161 +1,52 @@
 {
-  "meta": {
+  "site": {
     "title": "void. The product that returns nothing.",
-    "description": "void has zero bytes, zero side effects and zero features. Every call returns on time."
-  },
-  "nav": {
     "skip": "Skip to content",
-    "proof": "Specs",
-    "blog": "Notes",
-    "changelog": "Changelog"
+    "footer": "© 2026 void. A froQ studio project."
   },
   "theme": {
-    "toLight": "Switch to light theme",
-    "toDark": "Switch to dark theme"
+    "dark": "Dark",
+    "light": "Light"
   },
-  "hero": {
-    "introducing": "introducing",
-    "word": "void.",
-    "tagline": "The product that returns nothing",
-    "scroll": "Scroll",
-    "cta": "Install void"
-  },
-  "ticker": [
-    "returns: void",
-    "p99 latency: 0 ms",
-    "bundle: 0 B",
-    "dependencies: 0",
-    "side effects: none",
-    "regions: all",
-    "breaking changes: none",
-    "uptime: 100%"
-  ],
-  "features": {
-    "label": "Specs",
-    "title": "Four measurements. All zero.",
-    "items": [
-      {
-        "label": "Latency",
-        "title": "0 ms at p99.",
-        "copy": "No work is scheduled, so nothing waits. Cold starts and warm starts take exactly the same time.",
-        "unit": "ms"
-      },
-      {
-        "label": "Footprint",
-        "title": "0 bytes, gzipped.",
-        "copy": "void is fully tree-shakeable. After a production build, nothing of it remains in your bundle.",
-        "unit": "B"
-      },
-      {
-        "label": "Side effects",
-        "title": "Pure by construction.",
-        "copy": "It reads nothing, writes nothing and makes no network requests. State stays where you left it.",
-        "unit": "writes"
-      },
-      {
-        "label": "Reliability",
-        "title": "Never throws.",
-        "copy": "There is no failure path because there is no code path. Coverage is 100% of zero lines.",
-        "unit": "errors"
-      }
-    ]
-  },
-  "statement": {
-    "label": "Principle",
-    "a": "functions return void.",
-    "b": "so does the product."
-  },
-  "quotes": {
-    "label": "Reviews",
-    "title": "From the people using it.",
-    "items": [
-      {
-        "quote": "We replaced an entire service with void. Nobody on call has noticed.",
-        "by": "Staff engineer, fintech"
-      },
-      {
-        "quote": "The build is faster, the bundle is smaller, and there is nothing left to review.",
-        "by": "Frontend lead, design studio"
-      },
-      {
-        "quote": "The first dependency I have added that made the project simpler.",
-        "by": "Independent developer"
-      }
-    ]
-  },
-  "pricing": {
-    "label": "Pricing",
-    "title": "Free. Permanently.",
-    "lede": "One plan, no tiers. There is no usage to meter and no seat to count.",
-    "price": "0",
-    "period": "/forever",
-    "facts": [
-      { "k": "Seats", "v": "Unlimited" },
-      { "k": "Usage", "v": "Unmetered" },
-      { "k": "Contract", "v": "None" },
-      { "k": "Card", "v": "Not required" }
-    ],
-    "enterprise": "Enterprise pricing is identical."
-  },
-  "faq": {
-    "label": "Q&A",
-    "title": "Common questions.",
-    "items": [
-      {
-        "q": "What does `void()` return?",
-        "a": "Nothing. On time, every time."
-      },
-      {
-        "q": "Does it work with my stack?",
-        "a": "Any language that can express doing nothing is supported. Most offer several ways."
-      },
-      {
-        "q": "Is there a paid tier?",
-        "a": "No. There is nothing to charge for."
-      },
-      {
-        "q": "Can I get a refund?",
-        "a": "Yes. It has already been processed."
-      },
-      {
-        "q": "What's on the roadmap?",
-        "a": "Nothing new. We don't plan to ship breaking changes."
-      }
-    ]
-  },
-  "remaining": "page remaining",
-  "final": {
-    "title": "ship void.",
-    "lede": "No configuration, no maintenance, no migration to plan.",
-    "note": "No account or card required."
+  "nav": {
+    "docs": "Docs",
+    "notes": "Notes",
+    "changelog": "Changelog",
+    "install": "Install"
   },
   "install": {
-    "done": "void is installed.",
-    "lede": "This page now returns nothing.",
-    "restore": "Restore page"
+    "label": "Install void",
+    "done": "shipped",
+    "back": "return",
+    "copy": "Copy",
+    "copied": "Copied"
   },
-  "footer": {
-    "status": "All systems operational",
-    "left": "© 2026 void.",
-    "right": "A froQ studio project."
-  },
-  "blog": {
-    "title": "Notes",
+  "notes": {
+    "label": "Notes",
+    "title": "Notes.",
     "lede": "Occasional writing on building, shipping and maintaining nothing.",
-    "empty": "No posts yet.",
-    "back": "All notes",
+    "count": "{n} notes",
     "read": "Read",
-    "minutes": "{n} min read"
+    "minutes": "{n} min read",
+    "back": "All notes",
+    "next": "Next note",
+    "end": "More nothing, eventually."
   },
   "changelog": {
-    "title": "Changelog",
+    "label": "Changelog",
+    "title": "Changelog.",
     "lede": "Every release of void, newest first.",
+    "count": "{n} releases",
     "latest": "latest",
-    "count": "{n} releases"
+    "end": "Nothing before this."
   },
-  "error": {
-    "notFound": "This page returns nothing.",
-    "generic": "Something went wrong.",
+  "docs": {
+    "label": "Docs",
+    "prev": "Previous",
+    "next": "Next"
+  },
+  "notFound": {
+    "title": "This page returns nothing.",
     "lede": "Check the address, or go back to the start.",
     "back": "Back to home"
   }
