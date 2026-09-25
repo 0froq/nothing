@@ -2,6 +2,7 @@
 const { product } = useAppConfig()
 const { t } = useI18n()
 const link = useKitLink()
+const { sections, current, pinned } = usePageSections()
 </script>
 
 <template>
@@ -16,6 +17,11 @@ const link = useKitLink()
         :size="4"
       /><span class="l-dot">{{ product.mark }}</span>
     </NuxtLink>
+    <SectionNav
+      v-if="sections.length"
+      :sections="sections"
+      :current="current"
+    />
     <nav class="l-nav">
       <NuxtLink
         v-for="item in product.nav"
@@ -25,6 +31,16 @@ const link = useKitLink()
         {{ t(item.label) }}
       </NuxtLink>
     </nav>
-    <InstallLink class="l-link" />
+    <Transition name="section-bar">
+      <div
+        v-if="pinned && sections.length"
+        class="l-section-bar"
+      >
+        <SectionNav
+          :sections="sections"
+          :current="current"
+        />
+      </div>
+    </Transition>
   </header>
 </template>

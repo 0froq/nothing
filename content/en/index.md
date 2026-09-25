@@ -28,7 +28,7 @@ title: Four measurements. All zero.
   :::
 ::
 
-::block{label="Principle"}
+::block{id="statement" label="Principle"}
   :::statement
   ---
   lines:
@@ -38,7 +38,7 @@ title: Four measurements. All zero.
   :::
 ::
 
-::block{label="Reviews"}
+::block{id="quotes" label="Reviews"}
   :::quotes
   ---
   items:
@@ -67,7 +67,7 @@ title: Four measurements. All zero.
   :::
 ::
 
-::block{label="Q&A"}
+::block{id="faq" label="Q&A"}
   :::faq
   ---
   items:

@@ -12,7 +12,8 @@
     "docs": "文档",
     "notes": "笔记",
     "changelog": "更新日志",
-    "install": "安装"
+    "install": "安装",
+    "sections": "本页"
   },
   "install": {
     "label": "安装 void",

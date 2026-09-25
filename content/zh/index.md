@@ -28,7 +28,7 @@ title: 四项指标，全部为零。
   :::
 ::
 
-::block{label="原则"}
+::block{id="statement" label="原则"}
   :::statement
   ---
   lines:
@@ -38,7 +38,7 @@ title: 四项指标，全部为零。
   :::
 ::
 
-::block{label="评价"}
+::block{id="quotes" label="评价"}
   :::quotes
   ---
   items:
@@ -67,7 +67,7 @@ title: 四项指标，全部为零。
   :::
 ::
 
-::block{label="Q&A"}
+::block{id="faq" label="Q&A"}
   :::faq
   ---
   items:

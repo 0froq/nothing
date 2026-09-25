@@ -12,7 +12,8 @@
     "docs": "Docs",
     "notes": "Notes",
     "changelog": "Changelog",
-    "install": "Install"
+    "install": "Install",
+    "sections": "On this page"
   },
   "install": {
     "label": "Install void",
