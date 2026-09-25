@@ -7,7 +7,7 @@ const link = useKitLink()
 const { product } = useAppConfig()
 
 useHead({
-  htmlAttrs: { style: `--brand: ${product.accent.light}; --brand-dark: ${product.accent.dark ?? product.accent.light}` },
+  style: [{ key: 'theme', innerHTML: () => themeStyle(product.theme) }],
   title: () => copy('notFound.title'),
 })
 </script>

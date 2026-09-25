@@ -14,7 +14,7 @@ const next = computed(() => theme.value === 'dark' ? 'light' : 'dark')
       k="site.footer"
       :size="24"
     /></span>
-    <nav>
+    <nav class="l-nav">
       <NuxtLink
         v-for="item in product.footer"
         :key="item.to"

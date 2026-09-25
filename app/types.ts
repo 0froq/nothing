@@ -23,12 +23,34 @@ export interface NavLink {
   to: string
 }
 
+export interface Palette {
+  bg: string
+  fg: string
+  muted: string
+  faint: string
+  line: string
+  accent: string
+}
+
+/** Optional overrides for type, scale and grid. Omitted keys keep the stylesheet defaults. */
+export interface Skin {
+  font?: { display?: string, text?: string, meta?: string }
+  /** 1 is the shipped page. Display, poster and title scale their own clamps. */
+  scale?: { display?: number, poster?: number, title?: number, section?: number }
+  gap?: string
+  section?: string
+  /** Margin column and body column. They should add up to 12. */
+  margin?: number
+  body?: number
+}
+
 export interface ProductConfig {
   /** Wordmark. Empty renders a placeholder block. */
   name: string
   /** The accent stop after the name. */
   mark: string
-  accent: { light: string, dark?: string }
+  theme: { light: Palette, dark: Palette }
+  skin?: Skin
   signature: Signature
   /** Where "Install" goes. `null` plays the vanish instead of navigating. */
   install: { href: string | null }

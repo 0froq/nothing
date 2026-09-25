@@ -13,7 +13,7 @@ function readColors(): LayerColors {
   const html = document.documentElement
   const css = getComputedStyle(html)
   const get = (name: string): string => css.getPropertyValue(name).trim()
-  return { paper: get('--paper'), ink: get('--ink'), accent: get('--accent'), dark: html.dataset.theme === 'dark' }
+  return { paper: get('--bg'), ink: get('--fg'), accent: get('--accent'), dark: html.dataset.theme === 'dark' }
 }
 
 /**
