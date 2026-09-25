@@ -5,7 +5,7 @@ export default defineAppConfig({
     name: 'void',
     mark: '.',
     accent: { light: '#e8431f', dark: '#ff6242' },
-    signature: { paper: true, line: true, hand: true, bloom: true },
+    signature: { paper: true, line: true, hand: true, bloom: true, pointer: { dwell: 'wash', click: 'wash', dwellAfter: 1.2 } },
     install: { href: null },
     nav: [
       { label: 'nav.docs', to: '/docs' },

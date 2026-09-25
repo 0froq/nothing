@@ -43,8 +43,14 @@ export function useSignature(root: Ref<HTMLElement | undefined>, options: Signat
     const line = sig.line && !!options.line && !!find('rule')
 
     if (sig.paper) {
-      const marks = [mark, line ? null : finalMark].filter((m): m is HTMLElement => !!m)
-      paper = createPaper({ colors: readColors(), marks, washes: sig.bloom })
+      const marks = sig.bloom ? [mark, line ? null : finalMark].filter((m): m is HTMLElement => !!m) : []
+      paper = createPaper({
+        colors: readColors(),
+        marks,
+        washes: sig.bloom,
+        dwellAfter: sig.pointer.dwell === 'wash' ? sig.pointer.dwellAfter : 0,
+        click: sig.pointer.click === 'wash',
+      })
     }
     const washes = !!paper && sig.bloom
     if (washes)
@@ -55,6 +61,8 @@ export function useSignature(root: Ref<HTMLElement | undefined>, options: Signat
           root: el,
           hand: sig.hand ? find('tagline') : null,
           colors: readColors(),
+          wet: (x, y) => paper?.wet(x, y) ?? 0,
+          flowing: () => paper?.flowing() ?? false,
           onArrive: washes && finalMark ? () => paper?.soak(finalMark) : undefined,
         })
       }, 900))

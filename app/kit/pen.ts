@@ -36,9 +36,14 @@ function handCopy(el: HTMLElement | null): string {
   return (clone.textContent ?? '').trim()
 }
 
+function smoothstep(a: number, b: number, x: number): number {
+  const t = Math.min(1, Math.max(0, (x - a) / (b - a)))
+  return t * t * (3 - 2 * t)
+}
+
 // `onArrive` hands the final full stop to another layer instead of stamping a flat dot
 export function createPen(options: PenOptions): PenLayer {
-  const { root, onArrive } = options
+  const { root, onArrive, wet, flowing } = options
   const textEl = options.hand ?? null
   const raw = handCopy(textEl)
   const hand = raw.length > 0 ? textEl : null
@@ -78,6 +83,7 @@ export function createPen(options: PenOptions): PenLayer {
   let Wd = new Float32Array()
   let NX = new Float32Array()
   let NY = new Float32Array()
+  let stainAt = new Float64Array()
   let OX = new Float32Array()
   let OY = new Float32Array()
   let VX = new Float32Array()
@@ -90,6 +96,10 @@ export function createPen(options: PenOptions): PenLayer {
   let dotBorn = 0
   let wordWidth = 1.6
   let dirty = true
+  // Dye stays long after the wash has gone, then eases back to ink
+  const DYE_HOLD = 70
+  const DYE_FADE = 36
+  let wake = Number.POSITIVE_INFINITY
 
   // Box of the text itself, not of the (possibly grid-stretched) element
   function textRect(el: Element): DOMRect {
@@ -269,6 +279,8 @@ export function createPen(options: PenOptions): PenLayer {
     VY = new Float32Array(total)
     NX = new Float32Array(total)
     NY = new Float32Array(total)
+    stainAt = new Float64Array(total)
+    wake = Number.POSITIVE_INFINITY
     pts.forEach(([x, y], i) => {
       X[i] = x
       Y[i] = y
@@ -413,24 +425,73 @@ export function createPen(options: PenOptions): PenLayer {
     const y1 = sy + H + 60
     const upto = Math.floor(head)
     const CH = 3
+    const doc = (i: number): [number, number] => [(X[i] ?? 0) + (OX[i] ?? 0), (Y[i] ?? 0) + (OY[i] ?? 0)]
+    const hidden = (i: number, j: number): boolean => {
+      const yi = Y[i] ?? 0
+      const yj = Y[j] ?? 0
+      return (yi < y0 && yj < y0) || (yi > y1 && yj > y1)
+    }
+    const dyeOf = (i: number): number => {
+      const at = stainAt[i] ?? 0
+      if (at <= 0)
+        return 0
+      const since = (now - at) / 1000
+      if (since <= DYE_HOLD)
+        return 1
+      return 1 - smoothstep(DYE_HOLD, DYE_HOLD + DYE_FADE, since)
+    }
+    const stroke = (i: number, j: number, width: number, color: string, alpha: number): void => {
+      const [x, y] = doc(i)
+      ctx.beginPath()
+      ctx.moveTo(x, y - sy)
+      for (let k = i + 1; k <= j; k++) {
+        const [px, py] = doc(k)
+        ctx.lineTo(px, py - sy)
+      }
+      ctx.globalAlpha = alpha
+      ctx.strokeStyle = color
+      ctx.lineWidth = width
+      ctx.stroke()
+      ctx.globalAlpha = 1
+      ctx.strokeStyle = ink
+    }
     for (let i = 0; i < upto;) {
-      // A segment takes the width of its end point; chunks break where the width jumps
       const w = Wd[i + 1] ?? 0
       let j = i + 1
       while (j < upto && j - i < CH && Math.abs((Wd[j + 1] ?? 0) - w) < w * 0.35)
         j++
-      const yi = Y[i] ?? 0
-      const yj = Y[j] ?? 0
-      if (w > 0 && !((yi < y0 && yj < y0) || (yi > y1 && yj > y1))) {
-        ctx.beginPath()
-        ctx.moveTo((X[i] ?? 0) + (OX[i] ?? 0), yi + (OY[i] ?? 0) - sy)
-        for (let k = i + 1; k <= j; k++)
-          ctx.lineTo((X[k] ?? 0) + (OX[k] ?? 0), (Y[k] ?? 0) + (OY[k] ?? 0) - sy)
-        ctx.lineWidth = wordWidth * w
-        ctx.stroke()
+      if (w > 0 && !hidden(i, j))
+        stroke(i, j, wordWidth * w, ink, 1)
+      if (wet) {
+        for (let k = i; k < j; k++) {
+          const [x, y] = doc(k)
+          if (wet(x, y) > 0.2)
+            stainAt[k] = now
+        }
       }
       i = j
     }
+    let next = Number.POSITIVE_INFINITY
+    let fading = false
+    for (let i = 0; i < upto;) {
+      const dye = dyeOf(i)
+      const at = stainAt[i] ?? 0
+      if (at > 0) {
+        const fadeAt = at + DYE_HOLD * 1000
+        if (now >= fadeAt && now < fadeAt + DYE_FADE * 1000)
+          fading = true
+        else if (now < fadeAt && fadeAt < next)
+          next = fadeAt
+      }
+      let j = i + 1
+      while (j < upto && j - i < CH && Math.abs(dyeOf(j) - dye) < 0.06)
+        j++
+      const w = Wd[j] ?? Wd[i + 1] ?? 0
+      if (dye > 0.02 && w > 0 && !hidden(i, j))
+        stroke(i, j, wordWidth * w, accent, dye)
+      i = j
+    }
+    wake = fading ? now : next
     // Fractional tip and the nib
     // A pen resting where a lift put it leaves no mark until it moves
     const tipW = Wd[upto + 1] ?? 0
@@ -481,6 +542,8 @@ export function createPen(options: PenOptions): PenLayer {
     if (destroyed)
       return
     const moving = thread()
+    if (flowing?.() || now >= wake)
+      dirty = true
     if (dirty || moving || window.scrollY !== lastScroll || (dot && dotBorn && now - dotBorn < 500)) {
       draw(now)
       dirty = false

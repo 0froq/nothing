@@ -5,8 +5,15 @@ export interface Signature {
   line: boolean
   /** The pen handwrites the hero tagline (Latin only; the font has no CJK glyphs). */
   hand: boolean
-  /** Watercolour: punctuation blooms, pointer dwell and clicks. Needs `paper`. */
+  /** Watercolour on punctuation. Needs `paper`. */
   bloom: boolean
+  /** Ink the pointer leaves on the paper. `false` is still. `wash` is watercolour. */
+  pointer: {
+    dwell: false | 'wash'
+    click: false | 'wash'
+    /** Seconds the pointer must rest before dwell ink starts. */
+    dwellAfter: number
+  }
 }
 
 export interface NavLink {

@@ -1,6 +1,6 @@
 // Pigment: paper, and optionally watercolour on it. The page stays grey; the only colour is
 // one bloom standing in for the brand's full stop, and whatever the visitor leaves behind.
-// With `washes: false` it is only the paper (fibre and tooth) and leaves the stops alone.
+// With `washes: false` the stops stay type. Dwell and click are separate.
 // Each bloom soaks outward through a fixed paper-noise field, so its edge grows ragged the
 // way a real wash does, with pigment gathering at the rim.
 
@@ -145,7 +145,7 @@ function toMark(el: HTMLElement): Mark {
 }
 
 export function createPaper(options: PaperOptions): PaperLayer | null {
-  const { colors, marks: mark = [], washes = true } = options
+  const { colors, marks: mark = [], washes = true, dwellAfter = 0, click = false } = options
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
   const canvas = document.createElement('canvas')
@@ -186,7 +186,16 @@ export function createPaper(options: PaperOptions): PaperLayer | null {
     throw new Error(gl.getProgramInfoLog(prog) ?? 'program')
   gl.useProgram(prog)
   const u = (name: string): WebGLUniformLocation | null => gl.getUniformLocation(prog, name)
-  const U = { res: u('uRes'), scroll: u('uScroll'), paper: u('uPaper'), accent: u('uAccent'), dark: u('uDark'), a: u('uA'), b: u('uB'), count: u('uCount') }
+  const U = {
+    res: u('uRes'),
+    scroll: u('uScroll'),
+    paper: u('uPaper'),
+    accent: u('uAccent'),
+    dark: u('uDark'),
+    a: u('uA'),
+    b: u('uB'),
+    count: u('uCount'),
+  }
   function setColors(theme: LayerColors): void {
     if (destroyed)
       return
@@ -291,7 +300,7 @@ export function createPaper(options: PaperOptions): PaperLayer | null {
   // Resting the pointer lets colour bleed from the tip; a press drops a bead of colour
   let tip: { x: number, y: number, still: number } | null = null
   let dwellBloom: Bloom | null = null
-  if (washes) {
+  if (dwellAfter > 0) {
     window.addEventListener('pointermove', (event) => {
       const x = event.clientX
       const y = event.clientY
@@ -304,23 +313,28 @@ export function createPaper(options: PaperOptions): PaperLayer | null {
       tip = null
       dwellBloom = null
     }, { signal })
+  }
+  const onPaper = (event: Event): boolean => {
+    const target = event.target
+    return !(target instanceof Element && target.closest('a, button, summary'))
+  }
+  if (click) {
     window.addEventListener('pointerdown', (event) => {
-      const target = event.target
-      if (target instanceof Element && target.closest('a, button, summary'))
+      if (event.button !== 0 || !onPaper(event))
         return
       spawn(event.clientX, event.clientY, 22 + Math.random() * 16, { strength: 1, tau: reduced ? 0.001 : 0.6 })
     }, { passive: true, signal })
   }
 
   function dwell(now: number): void {
-    if (!tip || reduced)
+    if (!tip || reduced || dwellAfter <= 0)
       return
     const held = (now - tip.still) / 1000
-    if (held < 0.6)
+    if (held < dwellAfter)
       return
     if (!dwellBloom)
       dwellBloom = spawn(tip.x, tip.y, 6, { strength: 0.75, tau: 1.6, life: 12 })
-    dwellBloom.size = Math.min(58, 6 + (held - 0.6) * 9)
+    dwellBloom.size = Math.min(58, 6 + (held - dwellAfter) * 9)
     dwellBloom.born = Math.min(dwellBloom.born, now)
     dwellBloom.life = 12 + held
   }
@@ -328,6 +342,35 @@ export function createPaper(options: PaperOptions): PaperLayer | null {
   const A = new Float32Array(MAX * 4)
   const B = new Float32Array(MAX * 4)
   let lastScroll = -1
+
+  function wet(x: number, y: number): number {
+    const now = performance.now()
+    let cover = 0
+    for (const b of blooms) {
+      const t = (now - b.born) / 1000
+      const alpha = b.hold ? 1 : 1 - smoothstep(b.life, b.life + 8, t)
+      if (alpha <= 0)
+        continue
+      const radius = Math.max(b.size * (1 - Math.exp(-t / b.tau)), 1)
+      const d = Math.hypot(x - b.x, y - b.y) / radius
+      if (d > 1.05)
+        continue
+      cover += b.strength * alpha * (1 - smoothstep(0.82, 1.02, d))
+    }
+    return Math.min(1, cover)
+  }
+
+  function flowing(): boolean {
+    const now = performance.now()
+    return blooms.some((b) => {
+      const t = (now - b.born) / 1000
+      const alpha = b.hold ? 1 : 1 - smoothstep(b.life, b.life + 8, t)
+      if (alpha <= 0)
+        return false
+      const growing = 1 - Math.exp(-t / b.tau) < 0.98
+      return growing || !b.hold
+    })
+  }
 
   function frame(now: number): void {
     if (destroyed)
@@ -408,5 +451,5 @@ export function createPaper(options: PaperOptions): PaperLayer | null {
   }, { signal })
   raf = requestAnimationFrame(frame)
 
-  return { bloom, soak, add, setColors, destroy }
+  return { bloom, soak, add, wet, flowing, setColors, destroy }
 }
