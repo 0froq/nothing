@@ -5,7 +5,7 @@
 
 import type { LayerColors, PenLayer, PenOptions, Point } from './types'
 import { layoutText } from './hand-font'
-import { cubic, looseEllipse, resample, simplify, smooth, STEP, tangent, wobble } from './pen-geometry'
+import { cubic, looseEllipse, resample, roundJoin, simplify, smooth, STEP, tangent, wobble } from './pen-geometry'
 
 interface Seg {
   from: number
@@ -120,7 +120,8 @@ export function createPen(options: PenOptions): PenLayer {
 
     const append = (poly: Point[], w: number, opts: TravelOpts): Seg => {
       const { speed, trigger = null, taper = false, nib = false } = opts
-      const r = resample(poly)
+      const joined = pen ? roundJoin(pen, dir, poly) : poly
+      const r = resample(joined)
       const from = pts.length
       r.forEach((p, i) => {
         if (from > 0 && i === 0)
@@ -184,9 +185,6 @@ export function createPen(options: PenOptions): PenLayer {
       }
       draft.push(append(g, isDot ? 1.5 : 1, { speed: size * (isDot ? 2 : 6), nib: !isDot }))
     })
-    // Leave the last letter heading down, towards the rule, not off the page
-    if (glyphs.length)
-      dir = [0.35, 0.94]
     const connector = 1.2 / wordWidth
     // Single-column layouts have no margin to run in, so the pen lifts between sections
     const narrow = window.innerWidth < 860
@@ -199,8 +197,6 @@ export function createPen(options: PenOptions): PenLayer {
       const y = fr.top + window.scrollY
       draft.push(travel([fr.right, y], [-0.45, 0.9], connector, { speed: 1100 }))
       draft.push(append(wobble([[fr.right, y], [fr.left, y]], 1.2, 3), connector * 0.8, { speed: 1800 }))
-      // The pen turns down at the end of the rule instead of running off the page
-      dir = [-0.2, 0.98]
     }
 
     // 3. Each section label is underlined; the price gets circled
