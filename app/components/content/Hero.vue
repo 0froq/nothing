@@ -60,11 +60,12 @@ const length = computed(() => Math.max(3, [...(product.name || 'name')].length))
         class="l-release"
         :to="link('/changelog')"
       >
-        <Fill
+        <span><Fill
           :value="latest.version"
           name="changelog.version"
           :size="6"
-        /><Fill
+        /></span>
+        <Fill
           :value="latest.title"
           name="changelog.title"
           :size="12"
