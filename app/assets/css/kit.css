@@ -16,24 +16,24 @@
   color-scheme: light;
 }
 
-/* Dark paper: warm charcoal stock, chalky ink, the accent a touch brighter */
+/* Dark theme: deep refined obsidian, luminous ink, balanced contrast without noisy paper grain */
 :root[data-theme='dark'] {
-  --paper: #171613;
-  --ink: #ebe7dd;
-  --soft: #8e8a80;
-  --faint: #3b3934;
-  --hair: rgba(235, 231, 221, 0.13);
+  --paper: #111113;
+  --ink: #f2f0ea;
+  --soft: #918f88;
+  --faint: #32312d;
+  --hair: rgba(242, 240, 234, 0.1);
   --accent: var(--brand-dark, var(--brand, #ff6242));
   color-scheme: dark;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --paper: #171613;
-    --ink: #ebe7dd;
-    --soft: #8e8a80;
-    --faint: #3b3934;
-    --hair: rgba(235, 231, 221, 0.13);
+    --paper: #111113;
+    --ink: #f2f0ea;
+    --soft: #918f88;
+    --faint: #32312d;
+    --hair: rgba(242, 240, 234, 0.1);
     --accent: var(--brand-dark, var(--brand, #ff6242));
     color-scheme: dark;
   }
@@ -1192,6 +1192,13 @@ button.l-cta {
 :root[data-theme='dark'] .shiki,
 :root[data-theme='dark'] .shiki span {
   color: var(--shiki-dark) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .shiki,
+  :root:not([data-theme]) .shiki span {
+    color: var(--shiki-dark) !important;
+  }
 }
 
 @media (max-width: 860px) {

@@ -77,20 +77,22 @@ void main() {
     float inside = 1.0 - smoothstep(0.97, 1.02, field);
     float rim = exp(-pow((1.0 - field) / 0.045, 2.0)) * inside;
     float wash = mix(0.55, 1.0, smoothstep(0.2, 0.95, field)) * (0.7 + 0.6 * fbm(doc * 0.05 + a.w * 3.0));
-    float gran = mix(0.55, 1.45, tooth);
+    float gran = mix(mix(0.55, 1.45, tooth), 1.0, uDark);
+    float rimTooth = mix(0.8 + 0.4 * tooth, 1.0, uDark);
 
-    dens += b.y * b.x * (inside * wash * 0.42 * gran + rim * 0.55 * (0.8 + 0.4 * tooth));
+    dens += b.y * b.x * (inside * wash * 0.42 * gran + rim * 0.55 * rimTooth);
   }
 
-  // Light paper absorbs through the wash; on dark paper the pigment sits on top and
-  // gets brighter where it gathers, like gouache on black stock
+  // Light paper absorbs through the wash; on dark mode we skip the gritty paper texture entirely
+  // and render clean, luminous diffusion that glows softly against the deep ground
   vec3 absorb = (1.0 - uAccent) + 0.05;
   vec3 wet = uPaper * exp(-absorb * dens);
-  vec3 lit = mix(uPaper, uAccent * (0.9 + 0.2 * tooth), 1.0 - exp(-dens * 1.6));
+  vec3 lit = mix(uPaper, uAccent, 1.0 - exp(-dens * 1.6));
   vec3 col = mix(wet, lit, uDark);
   float grain = (fib - 0.5) * 0.03 + (tooth - 0.5) * 0.022;
-  // Dark stock shows its fibre as a faint sheen rather than as shade
-  col = mix(col * (1.0 + grain), col + grain * 0.9, uDark);
+  // Apply paper fibre/tooth grain texture exclusively in light mode;
+  // dark mode stays sleek, deep and completely noise-free
+  col = mix(col * (1.0 + grain), col, uDark);
   o = vec4(col, 1.0);
 }`
 
