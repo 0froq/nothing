@@ -32,6 +32,7 @@ useSeoMeta({ description: () => note.value?.description })
   <Sheet v-if="note">
     <PageHead
       :title="note.title"
+      title-name="note.title"
       long
     >
       <template #kicker>
@@ -46,10 +47,14 @@ useSeoMeta({ description: () => note.value?.description })
     <section class="l-section is-prose">
       <div class="l-body l-prose">
         <p
-          v-if="note.description"
+          v-if="note.description != null"
           class="l-excerpt"
         >
-          {{ note.description }}
+          <Fill
+            :value="note.description"
+            name="note.description"
+            :size="24"
+          />
         </p>
         <ContentRenderer
           :value="note"
@@ -69,7 +74,13 @@ useSeoMeta({ description: () => note.value?.description })
         :to="toNote(next.path)"
       >
         <span class="l-kicker">{{ t('notes.next') }}</span>
-        <span class="l-entry-title">{{ next.title }}</span>
+        <span class="l-entry-title">
+          <Fill
+            :value="next.title"
+            name="note.title"
+            :size="12"
+          />
+        </span>
       </NuxtLink>
     </nav>
   </Sheet>

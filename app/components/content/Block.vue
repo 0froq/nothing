@@ -3,11 +3,15 @@
 withDefaults(defineProps<{
   id?: string
   label?: string | null
+  /** Name drawn on the label block while `label` is empty. */
+  labelName?: string
   /** Omit for no heading; an empty string shows a placeholder. */
   title?: string | null
+  /** Name drawn on the title block while `title` is empty. */
+  titleName?: string
   /** Tighter spacing with a rule, for lists of entries. */
   entry?: boolean
-}>(), { id: undefined, label: null, title: undefined })
+}>(), { id: undefined, label: null, labelName: 'block.label', title: undefined, titleName: 'block.title' })
 </script>
 
 <template>
@@ -22,6 +26,7 @@ withDefaults(defineProps<{
     >
       <Fill
         :value="label"
+        :name="labelName"
         :size="6"
       />
     </p>
@@ -32,6 +37,7 @@ withDefaults(defineProps<{
       >
         <Fill
           :value="title"
+          :name="titleName"
           :size="14"
         />
       </h2>

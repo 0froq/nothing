@@ -27,11 +27,20 @@ interface TravelOpts {
   nib?: boolean
 }
 
+/** Tagline text the pen writes. Slot labels inside a placeholder are not copy. */
+function handCopy(el: HTMLElement | null): string {
+  if (!el)
+    return ''
+  const clone = el.cloneNode(true) as HTMLElement
+  clone.querySelectorAll('.l-fill').forEach(node => node.remove())
+  return (clone.textContent ?? '').trim()
+}
+
 // `onArrive` hands the final full stop to another layer instead of stamping a flat dot
 export function createPen(options: PenOptions): PenLayer {
   const { root, onArrive } = options
   const textEl = options.hand ?? null
-  const raw = (textEl?.textContent ?? '').trim()
+  const raw = handCopy(textEl)
   const hand = raw.length > 0 ? textEl : null
   const text = hand ? raw.replace(/[.!?]$/, '') : ''
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches

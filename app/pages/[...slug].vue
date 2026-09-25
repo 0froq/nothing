@@ -18,9 +18,9 @@ if (!page.value)
   throw createError({ statusCode: 404, statusMessage: 'Not found', fatal: true })
 
 useHead(() => ({
-  title: page.value?.title,
-  // The landing carries the full site title itself
-  titleTemplate: page.value?.head ? undefined : '%s',
+  title: page.value?.title || undefined,
+  // A filled landing title is the whole document title. An empty one falls through to the site title.
+  titleTemplate: page.value?.head || !page.value?.title ? undefined : '%s',
 }))
 useSeoMeta({ description: () => page.value?.description })
 </script>
@@ -33,8 +33,11 @@ useSeoMeta({ description: () => page.value?.description })
     <PageHead
       v-if="page.head"
       :kicker="page.kicker"
+      kicker-name="kicker"
       :title="page.title"
+      title-name="title"
       :lede="page.description"
+      lede-name="description"
     />
     <ContentRenderer
       :value="page"

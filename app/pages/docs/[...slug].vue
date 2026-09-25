@@ -43,7 +43,9 @@ useSeoMeta({ description: () => doc.value?.description })
   <Sheet v-if="doc">
     <PageHead
       :title="doc.title"
+      title-name="doc.title"
       :lede="doc.description"
+      lede-name="doc.description"
       long
       compact
     >
@@ -61,7 +63,11 @@ useSeoMeta({ description: () => doc.value?.description })
           :to="item.to"
           :aria-current="item.path === doc.path ? 'page' : undefined"
         >
-          {{ item.title }}
+          <Fill
+            :value="item.title"
+            name="doc.title"
+            :size="10"
+          />
         </NuxtLink>
       </nav>
       <div class="l-body l-doc">
@@ -77,7 +83,11 @@ useSeoMeta({ description: () => doc.value?.description })
           v-if="prev"
           :to="prev.to"
         >
-          ← {{ prev.title }}
+          ← <Fill
+            :value="prev.title"
+            name="doc.title"
+            :size="10"
+          />
         </NuxtLink>
       </p>
       <NuxtLink
@@ -86,7 +96,13 @@ useSeoMeta({ description: () => doc.value?.description })
         :to="next.to"
       >
         <span class="l-kicker">{{ t('docs.next') }}</span>
-        <span class="l-entry-title">{{ next.title }}</span>
+        <span class="l-entry-title">
+          <Fill
+            :value="next.title"
+            name="doc.title"
+            :size="12"
+          />
+        </span>
       </NuxtLink>
     </nav>
   </Sheet>

@@ -10,16 +10,23 @@ withDefaults(defineProps<{
 <template>
   <Block
     :label="label"
+    label-name="step.label"
     entry
   >
     <h2 class="l-entry-title">
       <Fill
         :value="title"
+        name="step.title"
         :size="12"
       />
     </h2>
+    <Fill
+      v-if="code != null && !isFilled(code)"
+      name="step.code"
+      :size="18"
+    />
     <CopyCommand
-      v-if="code"
+      v-else-if="code"
       :code="code"
     />
     <div class="l-copy">

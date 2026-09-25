@@ -29,10 +29,11 @@ const length = computed(() => Math.max(3, [...(product.name || 'name')].length))
     <h1
       class="l-word"
       :style="{ '--len': length }"
-      :aria-label="`${product.name}${product.mark}`"
+      :aria-label="product.name ? `${product.name}${product.mark}` : undefined"
     >
       <span data-anchor="word"><Fill
         :value="product.name"
+        name="product.name"
         :size="4"
       /></span><span
         class="l-mark"
@@ -50,6 +51,7 @@ const length = computed(() => Math.max(3, [...(product.name || 'name')].length))
       >
         <Fill
           :value="tagline"
+          name="hero.tagline"
           :size="10"
         />
       </p>
@@ -58,11 +60,20 @@ const length = computed(() => Math.max(3, [...(product.name || 'name')].length))
         class="l-release"
         :to="link('/changelog')"
       >
-        <span>{{ latest.version }}</span>{{ latest.title }}
+        <Fill
+          :value="latest.version"
+          name="changelog.version"
+          :size="6"
+        /><Fill
+          :value="latest.title"
+          name="changelog.title"
+          :size="12"
+        />
       </NuxtLink>
       <p class="l-lede">
         <Fill
           :value="lede"
+          name="hero.lede"
           :size="40"
         />
       </p>

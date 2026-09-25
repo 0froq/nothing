@@ -8,6 +8,8 @@ export default defineComponent({
   name: 'Stop',
   props: {
     text: { type: String as PropType<string | null>, default: null },
+    /** Field name drawn inside the block while the text is empty. */
+    name: { type: String, default: '' },
     anchor: { type: String as PropType<'mark' | 'final-mark'>, default: 'mark' },
     /** Stop added when the text has none. */
     fallback: { type: String, default: '' },
@@ -16,7 +18,7 @@ export default defineComponent({
   setup(props) {
     return (): VNode | (VNode | string)[] => {
       if (!isFilled(props.text))
-        return placeholder(props.size)
+        return placeholder(props.size, props.name || undefined)
       const { body, stop } = splitStop(props.text, props.fallback)
       const mark = h('span', { 'class': 'l-mark', 'data-anchor': props.anchor }, stop)
       return stop ? [...rich(body), mark] : rich(body)

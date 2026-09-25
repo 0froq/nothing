@@ -991,22 +991,27 @@ button.l-cta {
   }
 }
 
-/* Missing copy: a block roughly the size of the text it stands in for */
+/* Empty copy: a block labeled with the field that still needs replacing */
 .l-fill {
-  display: inline-block;
-  width: calc(var(--fill, 8) * 0.5em);
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: max-content;
+  min-width: calc(var(--fill, 8) * 0.5em);
   max-width: 100%;
-  height: 0.62em;
-  vertical-align: baseline;
+  height: 1.35rem;
+  padding: 0 0.45rem;
+  vertical-align: middle;
   border-radius: 2px;
   background: var(--faint);
-  opacity: 0.75;
-}
-
-.l-word .l-fill,
-.l-amount .l-fill,
-.l-figure .l-fill {
-  height: 0.56em;
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 0;
+  line-height: 1;
+  white-space: nowrap;
 }
 
 /* Each page is a new sheet */

@@ -15,6 +15,7 @@ const text = computed(() => props.label ?? copy('install.label'))
   >
     <Fill
       :value="text"
+      name="install.label"
       :size="7"
     />
   </NuxtLink>
@@ -25,6 +26,7 @@ const text = computed(() => props.label ?? copy('install.label'))
   >
     <Fill
       :value="text"
+      name="install.label"
       :size="7"
     />
   </a>

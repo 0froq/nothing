@@ -11,18 +11,23 @@ const cols = computed(() => Math.min(3, Math.max(1, props.items.length)))
     :style="{ '--cols': cols }"
   >
     <figure
-      v-for="item in items"
-      :key="item.quote"
+      v-for="(item, index) in items"
+      :key="index"
       class="l-quote"
     >
       <blockquote>
         <Fill
           :value="item.quote"
+          :name="`quotes.${index}.quote`"
           :size="24"
         />
       </blockquote>
-      <figcaption v-if="item.by">
-        {{ item.by }}
+      <figcaption v-if="item.by != null">
+        <Fill
+          :value="item.by"
+          :name="`quotes.${index}.by`"
+          :size="12"
+        />
       </figcaption>
     </figure>
   </div>

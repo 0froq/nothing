@@ -1,10 +1,14 @@
+import { keepEmptyTitle } from './shared/empty-title'
 import { markFinalStop } from './shared/final-mark'
 
 export default defineNuxtConfig({
   compatibilityDate: '2026-09-19',
 
   hooks: {
-    'content:file:afterParse': ({ content, collection }) => {
+    // Notes and docs have no `::final`; the stop that ends the text blooms instead.
+    // An explicit `title: ''` must stay empty: Content otherwise names the page after the file.
+    'content:file:afterParse': ({ file, content, collection }) => {
+      keepEmptyTitle(content, file.body)
       if (collection.name === 'notes' || collection.name === 'docs')
         markFinalStop(content.body)
     },

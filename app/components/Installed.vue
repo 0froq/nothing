@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const { t } = useI18n()
+const copy = useCopy()
 const installed = useInstalled()
 const back = ref<HTMLButtonElement>()
 
@@ -15,7 +16,11 @@ watch(installed, (on) => {
     aria-live="polite"
   >
     <p class="l-installed-title">
-      {{ t('install.done') }}
+      <Fill
+        :value="copy('install.done')"
+        name="install.done"
+        :size="8"
+      />
     </p>
     <button
       ref="back"

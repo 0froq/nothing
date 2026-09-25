@@ -18,7 +18,9 @@ useHead({
       <PageHead
         :kicker="String(props.error.statusCode ?? 404)"
         :title="copy('notFound.title')"
+        title-name="notFound.title"
         :lede="copy('notFound.lede')"
+        lede-name="notFound.lede"
         long
       >
         <template #meta>

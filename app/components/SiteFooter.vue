@@ -4,16 +4,14 @@ const { t, locale, locales } = useI18n()
 const link = useKitLink()
 const switchLocalePath = useSwitchLocalePath()
 const { theme, ready, toggle } = useTheme()
-const copy = useCopy()
-
 const others = computed(() => locales.value.filter(l => l.code !== locale.value))
 const next = computed(() => theme.value === 'dark' ? 'light' : 'dark')
 </script>
 
 <template>
   <footer class="l-foot">
-    <span><Fill
-      :value="copy('site.footer')"
+    <span><Copy
+      k="site.footer"
       :size="24"
     /></span>
     <nav>

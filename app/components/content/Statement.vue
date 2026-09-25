@@ -12,7 +12,14 @@ withDefaults(defineProps<{ lines?: string[] }>(), { lines: () => [] })
         v-for="(line, index) in lines"
         :key="index"
       >
-        <br v-if="index"><RichText :text="line" />
+        <br v-if="index"><Fill
+          v-if="!isFilled(line)"
+          :name="`statement.${index}`"
+          :size="16"
+        /><RichText
+          v-else
+          :text="line"
+        />
       </template>
     </template>
     <slot

@@ -2,12 +2,22 @@
 // Head of an inner page: a large title whose stop blooms, over a ruled line the pen draws
 withDefaults(defineProps<{
   kicker?: string | null
+  kickerName?: string
   title?: string | null
+  titleName?: string
   lede?: string | null
+  ledeName?: string
   long?: boolean
   /** A shorter head for reference pages, where the content should start above the fold. */
   compact?: boolean
-}>(), { kicker: null, title: null, lede: null })
+}>(), {
+  kicker: null,
+  kickerName: 'kicker',
+  title: null,
+  titleName: 'title',
+  lede: null,
+  ledeName: 'lede',
+})
 </script>
 
 <template>
@@ -21,6 +31,7 @@ withDefaults(defineProps<{
     >
       <Stop
         :text="title"
+        :name="titleName"
         fallback="."
         :size="long ? 12 : 5"
       />
@@ -33,15 +44,20 @@ withDefaults(defineProps<{
         <slot name="kicker">
           <Fill
             :value="kicker"
+            :name="kickerName"
             :size="8"
           />
         </slot>
       </p>
       <p
-        v-if="lede"
+        v-if="lede != null"
         class="l-lede"
       >
-        {{ lede }}
+        <Fill
+          :value="lede"
+          :name="ledeName"
+          :size="28"
+        />
       </p>
       <p
         v-if="$slots.meta"

@@ -8,7 +8,12 @@ useHead({
     lang: () => localeHead.value.htmlAttrs?.lang,
     style: `--brand: ${product.accent.light}; --brand-dark: ${product.accent.dark ?? product.accent.light}`,
   },
-  titleTemplate: title => title ? `${title} — ${product.name}${product.mark}` : t('site.title'),
+  titleTemplate: (title) => {
+    const brand = product.name ? `${product.name}${product.mark}` : ''
+    if (title)
+      return brand ? `${title} — ${brand}` : title
+    return t('site.title')
+  },
 })
 </script>
 

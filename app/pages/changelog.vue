@@ -15,8 +15,11 @@ useHead({ title: () => t('changelog.label') })
   <Sheet line>
     <PageHead
       :kicker="copy('changelog.label')"
+      kicker-name="changelog.label"
       :title="copy('changelog.title')"
+      title-name="changelog.title"
       :lede="copy('changelog.lede')"
+      lede-name="changelog.lede"
     >
       <template #meta>
         {{ t('changelog.count', { n: releases?.length ?? 0 }) }}
@@ -24,19 +27,25 @@ useHead({ title: () => t('changelog.label') })
     </PageHead>
     <Block
       v-for="(release, index) in releases"
-      :id="release.version"
+      :id="isFilled(release.version) ? release.version : undefined"
       :key="release.path"
       :label="release.version"
+      label-name="changelog.version"
       entry
     >
       <p class="l-kicker">
-        {{ release.date }}<template v-if="index === 0">
+        <Fill
+          :value="release.date"
+          name="changelog.date"
+          :size="10"
+        /><template v-if="index === 0">
           · {{ t('changelog.latest') }}
         </template>
       </p>
       <h2 class="l-entry-title">
         <Fill
           :value="release.title"
+          name="changelog.title"
           :size="12"
         />
       </h2>
@@ -47,6 +56,7 @@ useHead({ title: () => t('changelog.label') })
     </Block>
     <Final
       :title="copy('changelog.end')"
+      title-name="changelog.end"
       end
     />
   </Sheet>

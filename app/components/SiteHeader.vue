@@ -12,6 +12,7 @@ const link = useKitLink()
     >
       <Fill
         :value="product.name"
+        name="product.name"
         :size="4"
       /><span class="l-dot">{{ product.mark }}</span>
     </NuxtLink>

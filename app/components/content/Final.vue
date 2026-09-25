@@ -3,11 +3,13 @@
 withDefaults(defineProps<{
   id?: string
   title?: string | null
+  /** Name drawn on the title block while `title` is empty. */
+  titleName?: string
   lede?: string
   cta?: boolean
   /** A quieter sign-off for inner pages: smaller, no call to action. */
   end?: boolean
-}>(), { id: undefined, title: null, lede: undefined, cta: true })
+}>(), { id: undefined, title: null, titleName: 'final.title', lede: undefined, cta: true })
 </script>
 
 <template>
@@ -22,15 +24,24 @@ withDefaults(defineProps<{
     >
       <Stop
         :text="title"
+        :name="titleName"
         anchor="final-mark"
         :size="8"
       />
     </h2>
     <p
-      v-if="lede"
+      v-if="lede != null"
       class="l-lede"
     >
-      <RichText :text="lede" />
+      <Fill
+        v-if="!isFilled(lede)"
+        name="final.lede"
+        :size="24"
+      />
+      <RichText
+        v-else
+        :text="lede"
+      />
     </p>
     <slot />
     <InstallLink
